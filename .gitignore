@@ -1,0 +1,7 @@
+.DS_Store
+.Python
+*.pyc
+__pycache__/
+.vscode/
+.idea/
+supervisord.pid
