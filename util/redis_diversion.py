@@ -16,7 +16,7 @@ class RedisDiversion(redis.StrictRedis):
         return instance.exists(*args)
 
     def get(self, *args, **kwargs):
-        instance = self.instances[random.randint(0,self.size-1)]
+        instance = self.instances[random.randint(0, self.size - 1)]
         return instance.get(*args, **kwargs)
 
     def set(self, *args, **kwargs):
