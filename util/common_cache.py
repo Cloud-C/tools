@@ -164,9 +164,6 @@ class CacheSetter:
             return self._base_query_to_list(base_query_obj=temp_query.limit(self.limit_size))
         return temp_query.all()
 
-    def _format_redis_key_by_special_key(self):
-        return f'special_key:{self.special_key}'
-
     def _format_redis_key(self, key, model_obj, obj_dict):
         key_type = self.data_fields.get(key, None)
         if not key_type:
