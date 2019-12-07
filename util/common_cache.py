@@ -102,12 +102,13 @@ class CacheSetter:
 
         指定cache不過期: expire_time設為None
 
-        example:
-            cache_setter = CacheSetter(model=League, key_set={'id', 'sport_id'})
+        example: <model> = <SQLAlchemy_Model>
+
+            cache_setter = CacheSetter(model=<model>, key_set={<col_name_1>, <col_name_2>, ...})
             cache_setter.filter().exec()
-            cache_setter.filter(League.sport_id == 3, League.country_code == 'mx').exec()
-            cache_setter.filter(League.sport_id == 3).filter(League.country_code == 'mx').exec()
-            cache_setter.filter().order_by(League.id.desc()).limit(100).exec()
+            cache_setter.filter(<model>.<col_name_1> == <something>, <model>.<col_name_2> == <something>).exec()
+            cache_setter.filter(<model>.<col_name_1> == <something>).filter(<model>.<col_name_2> == <something>).exec()
+            cache_setter.filter().order_by(<model>.<col_name_1>.desc()).limit(<limit_size>).exec()
     """
     def __init__(self, model, key_set=None, special_key=None, expire_time=60 * 60 * 24 * 30):
         self.model = model
@@ -237,10 +238,11 @@ class CacheGetter:
     """
         取得cache
 
-        example:
-            cache_getter = CacheGetter(model=SoccerMatch)
-            result = cache_getter.get(key='id', attr=100)
-            result_list = cache_getter.get(key='open_datetime', attr='2019-11-01')
+        example: <model> = <SQLAlchemy_Model>
+
+            cache_getter = CacheGetter(model=<model>)
+            result = cache_getter.get(key=<col_name_1>, attr=<attr_1>)
+            result_list = cache_getter.get(key=<col_name_2>, attr=<attr_2>)
     """
     def __init__(self, model):
         self.model = model
