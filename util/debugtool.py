@@ -42,11 +42,13 @@ class DebugTool:
     def _init_file_path(cls):
         for key, value in cls.log_methods.items():
             path = value[0]
-            if not os.path.isdir(cls.abs_path + path):
-                os.makedirs(cls.abs_path + path)
+            os.makedirs(f'{cls.abs_path}{path}', exist_ok=True)
 
     @staticmethod
-    def _get_file_handler(file_name, level=logging.DEBUG):  # log存成檔案
+    def _get_file_handler(file_name, level=logging.DEBUG):
+        """
+            log存成檔案
+        """
         console = TimedRotatingFileHandler(
             file_name, when='H', interval=1, backupCount=10000, encoding=None, delay=False, utc=False)
         console.setLevel(level)
@@ -55,7 +57,10 @@ class DebugTool:
         return console
 
     @staticmethod
-    def _get_stream_handler(level=logging.DEBUG):  # print到終端上的
+    def _get_stream_handler(level=logging.DEBUG):
+        """
+            print到終端上的
+        """
         console = logging.StreamHandler(sys.stdout)
         console.setLevel(level)
         formatter = logging.Formatter('[%(asctime)s] [%(levelname)-8s] [%(message)s]')
@@ -78,14 +83,14 @@ class DebugTool:
         logging.getLogger('PIL').setLevel(logging.WARNING)
         logging.captureWarnings(True)
 
-    @classmethod
-    def _get_logger(cls):
+    @staticmethod
+    def _get_logger():
         logger = logging.getLogger()
         logger.setLevel(logging.DEBUG)
         return logger
 
-    @classmethod
-    def _have_traceback(cls, method, exception, msg):
+    @staticmethod
+    def _have_traceback(method, exception, msg):
         traceback_result = traceback.format_exc().strip('\n')
         if exception and msg:
             method(f'{msg}] [{str(exception)}]\n[{traceback_result}')
@@ -94,8 +99,8 @@ class DebugTool:
         elif msg:
             method(f'{msg}]\n[{traceback_result}')
 
-    @classmethod
-    def _no_traceback(cls, method, exception, msg):
+    @staticmethod
+    def _no_traceback(method, exception, msg):
         if exception and msg:
             method(f'{msg}] [{str(exception)}')
         elif exception:
