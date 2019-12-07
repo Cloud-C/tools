@@ -54,6 +54,7 @@ class DBHelper:
         except Exception as e:
             DebugTool.error(e)
             db.session.rollback()
+            raise e
 
 
 # 代理ORM Model
