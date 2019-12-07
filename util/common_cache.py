@@ -47,9 +47,9 @@ class CacheTool:
             value = getattr(model_obj, column, None)
             if value:
                 if data_type == datetime:
-                    value = CacheTool.convert_datetime_to_str(_datetime=value)
+                    value = cls.convert_datetime_to_str(_datetime=value)
                 elif data_type == date:
-                    value = CacheTool.convert_date_to_str(_datetime=value)
+                    value = cls.convert_date_to_str(_datetime=value)
             temp_dict.update({
                 column: value
             })
@@ -62,9 +62,9 @@ class CacheTool:
             value = data_dict.get(column, None)
             if value:
                 if data_type == datetime:
-                    value = CacheTool.convert_str_to_datetime(_str=value)
+                    value = cls.convert_str_to_datetime(_str=value)
                 elif data_type == date:
-                    value = CacheTool.convert_str_to_date(_str=value)
+                    value = cls.convert_str_to_date(_str=value)
             temp_dict.update({
                 column: value
             })
